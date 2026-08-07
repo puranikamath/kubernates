@@ -262,6 +262,17 @@ Review logs
 
 kubectl logs <pod-name>
 
+
+**************************************issue************
+Common Pending Causes at a Glance
+Cause	Command to Check	Typical Fix
+Insufficient CPU/Memory	kubectl describe pod, kubectl top nodes	Add resources or reduce requests
+Node NotReady	kubectl get nodes	Restore node health
+Taints	kubectl describe node	Add toleration or use another node
+Node Selector/Affinity	kubectl get nodes --show-labels	Match labels and selectors
+PVC Pending	kubectl get pvc	Bind the PVC or configure storage
+Scheduler issue	kubectl get pods -n kube-system	Ensure the scheduler is running
+
 Check cluster events
 
 kubectl get events
