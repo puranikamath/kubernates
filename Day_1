@@ -1,1 +1,11 @@
-
+sample pod deploymnet
+create pod
+delete pod
+check logs pod
+check confiuration pod
+check details pod
+where the pod deployed ? which namespace
+how pod cretes container
+how to check container pod details
+container logs
+scenario based questions about pod related .
