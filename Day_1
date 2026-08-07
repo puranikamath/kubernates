@@ -12,3 +12,257 @@ scenario based questions about pod related .
 
 
 https://chatgpt.com/s/t_6a753dc63e248191a732189d0c043587
+==========================================
+
+Here are 10 real-world Kubernetes Pod scenario-based interview questions with answers. These are commonly asked in L2/L3 Kubernetes Administrator, DevOps, and Platform Engineer interviews.
+
+1. Pod is stuck in Pending state
+Scenario
+
+You created a Pod, but it remains in the Pending state.
+
+What will you check?
+
+Answer:
+
+Check Pod details:
+
+kubectl describe pod <pod-name>
+
+Verify node status:
+
+kubectl get nodes
+Check for:
+Insufficient CPU/Memory
+Taints and tolerations
+Node selectors/affinity
+PVC not bound
+Scheduler events
+2. Pod is in ImagePullBackOff
+Scenario
+
+Your Pod fails to start with ImagePullBackOff.
+
+What is the cause?
+
+Answer:
+Possible reasons:
+
+Incorrect image name
+Incorrect image tag
+Private registry authentication issue
+Registry unavailable
+Network connectivity issue
+
+Commands:
+
+kubectl describe pod <pod-name>
+kubectl get events
+3. Pod is in CrashLoopBackOff
+Scenario
+
+A Pod starts and immediately restarts repeatedly.
+
+How do you troubleshoot?
+
+Answer:
+Check logs:
+
+kubectl logs <pod-name>
+
+Previous container logs:
+
+kubectl logs <pod-name> --previous
+
+Check:
+
+Application crash
+Wrong startup command
+Missing ConfigMap/Secret
+Database connection failure
+Resource limits
+4. Pod cannot communicate with another Pod
+Scenario
+
+Two Pods are running but cannot communicate.
+
+What will you check?
+
+Answer:
+
+Pod IPs:
+
+kubectl get pods -o wide
+Network Policies
+CNI plugin (Calico/Cilium/Flannel)
+DNS resolution
+Firewall rules
+
+Test connectivity:
+
+kubectl exec -it pod1 -- ping <pod2-ip>
+5. Pod cannot access a Service
+Scenario
+
+The application cannot reach a Kubernetes Service.
+
+Troubleshooting
+
+Check:
+
+kubectl get svc
+kubectl describe svc
+
+Verify selectors:
+
+kubectl get endpoints
+
+Ensure:
+
+Service selector matches Pod labels
+Target port is correct
+Pod is healthy
+6. Pod keeps getting OOMKilled
+Scenario
+
+Pod status:
+
+OOMKilled
+What happened?
+
+Answer:
+The container exceeded its memory limit.
+
+Check:
+
+kubectl describe pod <pod-name>
+
+Review resource settings:
+
+resources:
+  requests:
+    memory: "512Mi"
+  limits:
+    memory: "1Gi"
+
+Increase memory or optimize the application.
+
+7. Pod is running but application is inaccessible
+Scenario
+
+Pod status is Running, but users cannot access the application.
+
+What will you verify?
+
+Answer:
+
+Is the application listening on the expected port?
+containerPort configuration
+Service configuration
+Readiness probe status
+Logs:
+kubectl logs <pod-name>
+
+Test inside the Pod:
+
+kubectl exec -it <pod-name> -- curl localhost:8080
+8. Pod is deleted automatically
+Scenario
+
+You delete a Pod, but it immediately reappears.
+
+Why?
+
+Answer:
+The Pod is managed by a higher-level controller such as:
+
+Deployment
+ReplicaSet
+StatefulSet
+DaemonSet
+
+Verify ownership:
+
+kubectl describe pod <pod-name>
+
+Look for:
+
+Controlled By: ReplicaSet/Deployment
+
+Delete the Deployment instead:
+
+kubectl delete deployment <deployment-name>
+9. Init Container never completes
+Scenario
+
+Pod status:
+
+Init:CrashLoopBackOff
+What will you do?
+
+Answer:
+
+Check init container logs:
+
+kubectl logs <pod-name> -c <init-container-name>
+
+Common causes:
+
+Incorrect command
+Dependency unavailable
+Permission denied
+Missing ConfigMap or Secret
+10. Pod is running on the wrong node
+Scenario
+
+The application must run only on a specific worker node.
+
+How would you achieve this?
+
+Answer:
+
+Label the node:
+
+kubectl label node worker1 environment=production
+
+Use a node selector:
+
+spec:
+  nodeSelector:
+    environment: production
+
+Alternatively, use:
+
+Node Affinity
+Taints and Tolerations (for stricter scheduling)
+Frequently Used Commands in Pod Troubleshooting
+kubectl get pods
+kubectl get pods -o wide
+kubectl describe pod <pod-name>
+kubectl logs <pod-name>
+kubectl logs <pod-name> --previous
+kubectl exec -it <pod-name> -- /bin/bash
+kubectl get events --sort-by=.metadata.creationTimestamp
+kubectl top pod
+kubectl delete pod <pod-name>
+kubectl get pod <pod-name> -o yaml
+Interview Tips
+
+When answering Pod troubleshooting scenarios, follow this sequence:
+
+Check the Pod status
+
+kubectl get pods
+
+Describe the Pod
+
+kubectl describe pod <pod-name>
+
+Review logs
+
+kubectl logs <pod-name>
+
+Check cluster events
+
+kubectl get events
+Verify resources, networking, storage, and scheduling before concluding.
