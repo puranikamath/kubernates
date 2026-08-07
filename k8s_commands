@@ -1,0 +1,12 @@
+##############Pod##############
+Frequently Used Commands in Pod Troubleshooting
+kubectl get pods
+kubectl get pods -o wide
+kubectl describe pod <pod-name>
+kubectl logs <pod-name>
+kubectl logs <pod-name> --previous
+kubectl exec -it <pod-name> -- /bin/bash
+kubectl get events --sort-by=.metadata.creationTimestamp
+kubectl top pod
+kubectl delete pod <pod-name>
+kubectl get pod <pod-name> -o yaml
