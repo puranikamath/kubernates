@@ -57,5 +57,6 @@ kubectl apply -f jenkins.yml
 kubectl delete pod <podname>
 kubectl get pods -A
 kubectl get pods -owide
+kubectl logs jenkins
 crul -v <ip>: portnumber
 
