@@ -1,1 +1,13 @@
-
+create pod
+to check details of pod
+check pod logs
+delete pod
+check pod ip
+check container ip
+check port cluster
+check port application
+what is init container
+what is ephimerial container/ how to use/create
+how to access pod
+lifecycle of pod
+troubleshoot pods commands
