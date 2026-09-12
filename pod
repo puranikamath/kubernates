@@ -55,4 +55,7 @@ spec:
 
 kubectl apply -f jenkins.yml
 kubectl delete pod <podname>
-kubectl 
+kubectl get pods -A
+kubectl get pods -owide
+crul -v <ip>: portnumber
+
