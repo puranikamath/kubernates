@@ -11,3 +11,48 @@ what is ephimerial container/ how to use/create
 how to access pod
 lifecycle of pod
 troubleshoot pods commands
+
+================pod-yml=============
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jenkins
+spec:
+  containers:
+  - name: jenkins
+    image: jenkins/jenkins:lts
+
+===============
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jenkins
+spec:
+  containers:
+  - name: jenkins
+    image: jenkins/jenkins:lts
+    ports:
+    - containerPort: 8080
+=========================
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jenkins2
+spec:
+  containers:
+  - name: jenkins2
+    image: jenkins/jenkins:lts
+    ports:
+    - containerPort: 8080
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+======================
+
+
+kubectl apply -f jenkins.yml
+kubectl delete pod <podname>
+kubectl 
