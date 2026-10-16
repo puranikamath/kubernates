@@ -31,3 +31,35 @@ root@ip-172-31-47-64:~# kubectl get pods -n my-dev -owide
 NAME     READY   STATUS    RESTARTS   AGE    IP               NODE              NOMINATED NODE   READINESS GATES
 tomcat   1/1     Running   0          105s   10.244.219.136   ip-172-31-40-70   <none>           <none>
 root@ip-172-31-47-64:~# 
+
+
+===========delete pod under namespace/pods=========
+root@ip-172-31-47-64:~# kubectl get ns
+NAME              STATUS   AGE
+default           Active   10d
+kube-node-lease   Active   10d
+kube-public       Active   10d
+kube-system       Active   10d
+my-dev            Active   31m
+root@ip-172-31-47-64:~# kubectl get pods -n my-dev 
+NAME     READY   STATUS    RESTARTS   AGE
+tomcat   1/1     Running   0          31m
+root@ip-172-31-47-64:~# kubectl delete pods - n tomcat -my-dev
+error: unknown shorthand flag: 'm' in -my-dev
+See 'kubectl delete --help' for usage.
+root@ip-172-31-47-64:~# kubectl delete pods
+error: resource(s) were provided, but no name was specified
+root@ip-172-31-47-64:~# kubectl delete pods  tomcat 
+Error from server (NotFound): pods "tomcat" not found
+root@ip-172-31-47-64:~# kubectl delete pods -n my-dev tomcat
+pod "tomcat" deleted
+root@ip-172-31-47-64:~# kubectl delete -n my-dev 
+error: You must provide one or more resources by argument or filename.
+Example resource specifications include:
+   '-f rsrc.yaml'
+   '--filename=rsrc.json'
+   '<resource> <name>'
+   '<resource>'
+root@ip-172-31-47-64:~# kubectl delete namespace my-dev 
+namespace "my-dev" deleted
+root@ip-172-31-47-64:~# 
