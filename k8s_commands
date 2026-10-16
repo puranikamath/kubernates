@@ -10,3 +10,67 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 kubectl top pod
 kubectl delete pod <pod-name>
 kubectl get pod <pod-name> -o yaml
+
+======pod-svc=====
+
+   98  du -sh *
+   99  kubectl get pods - owide
+  100  kubectl get nodes
+  101  kubectl get pods -o wide
+  102  kubectl logs dev-jenkins 
+  103  kubectl get -ns
+  104  kubectl get namespace
+  105  kubectl get -n default 
+  106  kubectl get pods -n default 
+  107  kubectl get pods -n kube-system 
+  108  kubectl get pods calico-kube-controllers-cb7c98d86-42cxz -A
+  109  kubectl get pods calico-kube-controllers-cb7c98d86-42cxz
+  110  kubectl get pods -n calico-kube-controllers-cb7c98d86-42cxz
+  111  kubectl get pods calico-kube-controllers-cb7c98d86-42cxz
+  112  kubectl get pods -n kube-system - o wide
+  113  kubectl get pods -n kube-system -owide
+  114  kubectl get pods -owide
+  115  curl -v 172.31.40.70
+  116  curl -v 172.31.40.70:8080
+  117  curl -v 10.244.219.130:8080
+  118  c
+  119  kubectl logs dev-jenkins 
+  120  ll
+  121  vi jenkins.pod.yml
+  122  kubectl apply -f jenkins.pod.yml 
+  123  vi jenkins.pod.yml
+  124  kubectl apply -f jenkins.pod.yml 
+  125  kubectl get nodes
+  126  kubectl get nodes -A
+  127  kubectl get pods
+  128  kubectl get pods -A
+  129  kubectl get pods -A -owide
+  130  crictl ps
+  131  route -n
+  132  apt install net-tools
+  133  ll
+  134  cat nodeport-tomcat.yml 
+  135  cat service-tomcat.yml 
+  136  cat tomcat.yml 
+  137  cat tomcat22.yml 
+  138  clear
+  139  ll
+  140  cat nodeport-tomcat-nginx.yml 
+  141  kubectl get svc
+  142  cat tomcat-n
+  143  cat nodeport-tomcat-nginx.yml 
+  144  vi nodeport-tomcat-nginx.yml 
+  145  kubectl apply -f nodeport-tomcat-nginx.yml 
+  146  vi nodeport-tomcat-nginx.yml 
+  147  kubectl apply -f nodeport-tomcat-nginx.yml 
+  148  vi nodeport-tomcat-nginx.yml 
+  149  cat nodeport-tomcat-nginx.yml 
+  150  vi nodeport-tomcat-nginx.yml 
+  151  kubectl apply -f nodeport-tomcat-nginx.yml 
+  152  vi nodeport-tomcat-nginx.yml 
+  153  kubectl apply -f nodeport-tomcat-nginx.yml 
+  154  kubectl get svc
+  155  kubectl get svc -owide
+  156  kubectl get endpoints
+  157  ll
+  158  cat nodeport-tomcat-nginx.yml 
