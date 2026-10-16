@@ -1,0 +1,33 @@
+root@ip-172-31-47-64:~# cat tomccat-my-namespace.yml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tomcat
+  namespace: my-dev
+spec:
+  containers:
+  - name: webapp
+    image: tomcat:latest
+
+
+    ============commands==========
+    root@ip-172-31-47-64:~# kubectl create namespace tomcat-dev
+namespace/tomcat-dev created
+root@ip-172-31-47-64:~# kubectl delete ns tomcat-dev 
+namespace "tomcat-dev" deleted
+root@ip-172-31-47-64:~# kubectl create namespace my-dev
+namespace/my-dev created
+root@ip-172-31-47-64:~# kubectl apply -f tomccat-my-namespace.yml 
+pod/tomcat created
+root@ip-172-31-47-64:~# kubectl get pods
+No resources found in default namespace.
+root@ip-172-31-47-64:~# kubectl get pods -n my-dev 
+NAME     READY   STATUS    RESTARTS   AGE
+tomcat   1/1     Running   0          48s
+root@ip-172-31-47-64:~# kubectl get pods - owide
+Error from server (NotFound): pods "-" not found
+Error from server (NotFound): pods "owide" not found
+root@ip-172-31-47-64:~# kubectl get pods -n my-dev -owide
+NAME     READY   STATUS    RESTARTS   AGE    IP               NODE              NOMINATED NODE   READINESS GATES
+tomcat   1/1     Running   0          105s   10.244.219.136   ip-172-31-40-70   <none>           <none>
+root@ip-172-31-47-64:~# 
