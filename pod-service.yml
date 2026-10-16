@@ -57,6 +57,29 @@ spec:
     - containerPort: 8080
   - name: nginx
     image: nginx:1.14.2
+
+
+    root@ip-172-31-47-64:~# cat nodeport-tomcat-nginx.yml 
+apiVersion: v1
+kind: Service     #objects 
+metadata:
+  name: tomcat-nginx-node-port
+spec:
+  type: NodePort
+  selector:              # it used match tke lables of pod which needs to access
+    name: webapp         # keu values of selector / match labes of pod
+  ports:
+    - name: tomcat-port
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30009
+    - name: nginx-port
+      protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30008
+root@ip-172-31-47-64:~# 
     ports:
     - containerPort: 80
 
