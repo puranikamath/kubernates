@@ -1,0 +1,63 @@
+root@ip-172-31-47-64:~# cat nodeport-tomcat.yml 
+apiVersion: v1
+kind: Service     #objects 
+metadata:
+  name: tomcat-node-port
+spec:
+  type: NodePort
+  selector:              # it used match tke lables of pod which needs to access
+    name: webapp         # keu values of selector / match labes of pod
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30007
+root@ip-172-31-47-64:~# cat service-tomcat.yml 
+apiVersion: v1
+kind: Service     #objects 
+metadata:
+  name: tomcat-service
+spec:
+  selector:              # it used match tke lables of pod which needs to access
+    name: webapp         # keu values of selector / match labes of pod
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+root@ip-172-31-47-64:~# cat tomcat.yml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tomcat
+  labels:         # for access pods via service 
+    name: webapp  # key vlaues of service 
+spec:
+  containers:
+  - name: tomcat
+    image: tomcat:latest
+    ports:
+    - containerPort: 8080
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+
+root@ip-172-31-47-64:~# cat tomcat22.yml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tomcat22
+  labels:         # for access pods via service 
+    name: webapp  # key vlaues of service 
+spec:
+  containers:
+  - name: tomcat
+    image: tomcat:latest
+    ports:
+    - containerPort: 8080
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+
+root@ip-172-31-47-64:~# 
