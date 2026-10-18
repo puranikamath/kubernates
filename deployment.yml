@@ -23,3 +23,51 @@ spec:
          image: tomcat:latest
          ports:
          - containerPort: 8080
+
+
+=========zero downtime=========
+root@ip-172-31-47-64:~/master.yml# kubectl apply -f deployment.yml 
+deployment.apps/tomcat-deployment configured
+root@ip-172-31-47-64:~/master.yml# kubectl get deployment
+NAME                READY   UP-TO-DATE   AVAILABLE   AGE
+tomcat-deployment   4/4     4            4           13m
+root@ip-172-31-47-64:~/master.yml# kubectl get rs
+NAME                          DESIRED   CURRENT   READY   AGE
+tomcat-deployment-b595cb974   0         0         0       13m
+tomcat-deployment-d7dc499db   4         4         4       15s
+root@ip-172-31-47-64:~/master.yml# kubectl get pods -v
+error: flag needs an argument: 'v' in -v
+See 'kubectl get --help' for usage.
+root@ip-172-31-47-64:~/master.yml# kubectl get pods -w
+NAME                                READY   STATUS    RESTARTS   AGE
+tomcat-deployment-d7dc499db-8596q   1/1     Running   0          69s
+tomcat-deployment-d7dc499db-9t494   1/1     Running   0          67s
+tomcat-deployment-d7dc499db-lz6t6   1/1     Running   0          69s
+tomcat-deployment-d7dc499db-sz4bj   1/1     Running   0          69s
+^Croot@ip-172-31-47-64:~/master.yml# 
+root@ip-172-31-47-64:~/master.yml# cat deployment.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-deployment
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  replicas: 4
+  selector:
+    matchLabels:
+      dev: tomcat
+  template:
+    metadata:
+      labels:
+        dev: tomcat
+    spec:
+     containers:
+       - name: webapp
+         image: tomcat:11.0.27-jdk25-temurin-resolute
+         ports:
+         - containerPort: 8080
+root@ip-172-31-47-64:~/master.yml# 
