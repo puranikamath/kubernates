@@ -1,0 +1,43 @@
+root@ip-172-31-47-64:~/master.yml# kubectl apply -f daemonset.yml 
+daemonset.apps/tomcat-daemonset created
+root@ip-172-31-47-64:~/master.yml# kubectl get daemonset
+NAME               DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+tomcat-daemonset   2         2         2       2            2           <none>          9s
+root@ip-172-31-47-64:~/master.yml# kubectl get deployment
+NAME                READY   UP-TO-DATE   AVAILABLE   AGE
+tomcat-deployment   4/4     4            4           52m
+root@ip-172-31-47-64:~/master.yml# kubectl get pods -owide
+NAME                                READY   STATUS    RESTARTS   AGE     IP               NODE               NOMINATED NODE   READINESS GATES
+tomcat-daemonset-75vnz              1/1     Running   0          90s     10.244.219.153   ip-172-31-40-70    <none>           <none>
+tomcat-daemonset-w449l              1/1     Running   0          90s     10.244.36.151    ip-172-31-42-100   <none>           <none>
+tomcat-deployment-d7dc499db-d6dxc   1/1     Running   0          8m19s   10.244.36.149    ip-172-31-42-100   <none>           <none>
+tomcat-deployment-d7dc499db-mtf5h   1/1     Running   0          8m19s   10.244.36.150    ip-172-31-42-100   <none>           <none>
+tomcat-deployment-d7dc499db-xjq8x   1/1     Running   0          8m19s   10.244.219.151   ip-172-31-40-70    <none>           <none>
+tomcat-deployment-d7dc499db-zx4wh   1/1     Running   0          8m19s   10.244.219.152   ip-172-31-40-70    <none>           <none>
+root@ip-172-31-47-64:~/master.yml# kubectl get nodes
+NAME               STATUS   ROLES           AGE   VERSION
+ip-172-31-40-70    Ready    <none>          13d   v1.33.13
+ip-172-31-42-100   Ready    <none>          13d   v1.33.13
+ip-172-31-47-64    Ready    control-plane   13d   v1.33.13
+root@ip-172-31-47-64:~/master.yml# cat daemonset.yml 
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: tomcat-daemonset
+  labels:
+    dev: tomcat
+spec:
+  selector:
+    matchLabels:
+      dev: tomcat
+  template:
+    metadata:
+      labels:
+        dev: tomcat
+    spec:
+     containers:
+       - name: webapp
+         image: tomcat:latest
+         ports:
+         - containerPort: 8080
+root@ip-172-31-47-64:~/master.yml# 
