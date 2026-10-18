@@ -1,0 +1,25 @@
+root@ip-172-31-47-64:~/master.yml# cat deployment.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-deployment
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  replicas: 4
+  selector:
+    matchLabels:
+      dev: tomcat
+  template:
+    metadata:
+      labels:
+        dev: tomcat
+    spec:
+     containers:
+       - name: webapp
+         image: tomcat:latest
+         ports:
+         - containerPort: 8080
