@@ -135,3 +135,25 @@ spec:
          ports:
          - containerPort: 8080
 
+root@ip-172-31-47-64:~/master.yml# cat daemonset.yml 
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: tomcat-daemonset
+  labels:
+    dev: tomcat
+spec:
+  selector:
+    matchLabels:
+      dev: tomcat
+  template:
+    metadata:
+      labels:
+        dev: tomcat
+    spec:
+     containers:
+       - name: webapp
+         image: tomcat:latest
+         ports:
+         - containerPort: 8080
+
