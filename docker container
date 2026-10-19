@@ -1,0 +1,58 @@
+root@ip-172-31-21-227:~# ll
+total 28
+drwx------  4 root root 4096 Oct 10 03:17 ./
+drwxr-xr-x 19 root root 4096 Oct 19 08:16 ../
+-rw-------  1 root root  690 Oct 10 03:17 .bash_history
+-rw-r--r--  1 root root 3106 Apr 20 08:46 .bashrc
+-rw-r--r--  1 root root  132 Apr 20 08:46 .profile
+drwx------  2 root root 4096 Oct  9 18:04 .ssh/
+drwx------  3 root root 4096 Oct  9 18:04 snap/
+root@ip-172-31-21-227:~# docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+root@ip-172-31-21-227:~# docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS                       PORTS     NAMES
+9d5279d4fbb3   jenkins/jenkins:lts   "/usr/bin/tini -- /u…"   6 minutes ago   Exited (130) 6 minutes ago             flamboyant_shirley
+root@ip-172-31-21-227:~# exit
+logout
+ubuntu@ip-172-31-21-227:~$ ll
+total 32
+drwxr-x--- 4 ubuntu ubuntu 4096 Oct  9 21:32 ./
+drwxr-xr-x 3 root   root   4096 Oct  9 18:04 ../
+-rw------- 1 ubuntu ubuntu   26 Oct 19 08:34 .bash_history
+-rw-r--r-- 1 ubuntu ubuntu  220 Feb 13  2026 .bash_logout
+-rw-r--r-- 1 ubuntu ubuntu 3771 Feb 13  2026 .bashrc
+drwx------ 2 ubuntu ubuntu 4096 Oct  9 18:07 .cache/
+-rw-r--r-- 1 ubuntu ubuntu  807 Feb 13  2026 .profile
+drwx------ 2 ubuntu ubuntu 4096 Oct  9 18:04 .ssh/
+ubuntu@ip-172-31-21-227:~$ docker ps -a
+permission denied while trying to connect to the docker API at unix:///var/run/docker.sock
+ubuntu@ip-172-31-21-227:~$ sudo su -
+root@ip-172-31-21-227:~# docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS                       PORTS     NAMES
+9d5279d4fbb3   jenkins/jenkins:lts   "/usr/bin/tini -- /u…"   9 minutes ago   Exited (130) 9 minutes ago             flamboyant_shirley
+root@ip-172-31-21-227:~# cat 9d5279d4fbb3
+cat: 9d5279d4fbb3: No such file or directory
+root@ip-172-31-21-227:~# docker start 9d5279d4fbb3
+9d5279d4fbb3
+root@ip-172-31-21-227:~# docker ps -a
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS          PORTS                                                                                          NAMES
+9d5279d4fbb3   jenkins/jenkins:lts   "/usr/bin/tini -- /u…"   10 minutes ago   Up 16 seconds   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp, 0.0.0.0:50000->50000/tcp, [::]:50000->50000/tcp   flamboyant_shirley
+root@ip-172-31-21-227:~# docker exec -it 9d5279d4fbb3 /bin/bash
+jenkins@9d5279d4fbb3:/$ ll
+bash: ll: command not found
+jenkins@9d5279d4fbb3:/$ ps -a
+    PID TTY          TIME CMD
+    100 pts/0    00:00:00 ps
+jenkins@9d5279d4fbb3:/$ ps -ef
+UID          PID    PPID  C STIME TTY          TIME CMD
+jenkins        1       0  0 08:39 ?        00:00:00 /usr/bin/tini -- /usr/local/bin/jenkins.sh
+jenkins        7       1 15 08:39 ?        00:00:22 java -Duser.home=/var/jenkins_home -Djenkins.model.Jenkins.slaveAgentPort=50000 -Dhudson.lifecycle=hudson.lifecycle.ExitLifecycle -jar 
+jenkins       93       0  0 08:41 pts/0    00:00:00 /bin/bash
+jenkins      101      93  0 08:41 pts/0    00:00:00 ps -ef
+jenkins@9d5279d4fbb3:/$ mkdir oct12
+mkdir: cannot create directory ‘oct12’: Permission denied
+jenkins@9d5279d4fbb3:/$ systmctl status jenkins
+bash: systmctl: command not found
+jenkins@9d5279d4fbb3:/$ cat /var/jenkins_home/secrets/initialAdminPassword
+18b5f94401b8473a974fa792ee683a78
+jenkins@9d5279d4fbb3:/$ 
